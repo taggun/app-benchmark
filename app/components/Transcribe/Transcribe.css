@@ -1,5 +1,5 @@
-.landing {
+.list {
   height: 100vh;
-  vertical-align: middle;
-  margin-top: 45vh;
+  overflow: auto;
+  padding-right: 3px;
 }

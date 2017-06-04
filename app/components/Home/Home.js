@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import styles from './Home.css';
 
@@ -58,9 +57,6 @@ export default class Home extends Component {
                 <div className="col s2">
                   <input type="submit" value="Login" className="btn-large" />
                 </div>
-                <Link to="/transcribe">
-                  <i className="fa fa-arrow-left fa-3x" />
-                </Link>
               </div>
             </form>
           </div>

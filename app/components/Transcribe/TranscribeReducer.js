@@ -1,32 +1,36 @@
 import {
-  LIST_REQUEST,
-  LIST_RESPONSE,
-  LIST_ERROR
+  FILE_REQUEST,
+  FILE_RESPONSE,
+  FILE_ERROR
 } from './TranscribeActions';
 
 const initialState = {
   apikey: undefined,
-  list: [],
-  error: undefined
+  file: undefined,
+  md5: undefined,
+  contentType: undefined
 };
 
 export default function transcribe(state = initialState, action) {
   switch (action.type) {
-    case LIST_REQUEST:
+    case FILE_REQUEST:
       return Object.assign({}, state, {
         apikey: action.apikey,
-        list: [],
+        md5: action.md5,
+        contentType: action.contentType,
         error: undefined
       });
-    case LIST_RESPONSE:
+    case FILE_RESPONSE:
       return Object.assign({}, state, {
-        list: action.list,
+        file: action.file,
         error: undefined
       });
-    case LIST_ERROR:
+    case FILE_ERROR:
       return Object.assign({}, state, {
         error: action.error.message,
-        list: []
+        file: undefined,
+        md5: undefined,
+        contentType: undefined
       });
     default:
       return state;

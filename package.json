@@ -177,6 +177,7 @@
     "history": "^4.6.1",
     "materialize-css": "^0.98.2",
     "materialize-loader": "github:zevran/materialize-loader#develop",
+    "moment": "^2.18.1",
     "node-fetch": "^1.7.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",

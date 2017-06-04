@@ -1,5 +1,13 @@
 import { app, Menu, shell, BrowserWindow } from 'electron';
 
+if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
+  require('electron-debug')();
+  const path = require('path');
+  const p = path.join(__dirname, '..', 'app', 'node_modules');
+  require('module').globalPaths.push(p);
+}
+
+
 export default class MenuBuilder {
   mainWindow: BrowserWindow;
 
@@ -119,6 +127,12 @@ export default class MenuBuilder {
     const templateDefault = [{
       label: '&File',
       submenu: [{
+        label: '&Home',
+        accelerator: 'Ctrl+O',
+        click: () => {
+          this.mainWindow.loadURL(`file://${__dirname}/app.html`);
+        }
+      }, {
         label: '&Open',
         accelerator: 'Ctrl+O'
       }, {

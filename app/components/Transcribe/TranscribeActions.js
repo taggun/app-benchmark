@@ -1,42 +1,44 @@
-export const LIST_REQUEST = 'LIST_REQUEST';
-export const LIST_RESPONSE = 'LIST_RESPONSE';
-export const LIST_ERROR = 'LIST_ERROR';
+export const FILE_REQUEST = 'FILE_REQUEST';
+export const FILE_RESPONSE = 'FILE_RESPONSE';
+export const FILE_ERROR = 'FILE_ERROR';
 
 const benchmarkApiUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3022' : 'https://api-benchmark.taggun.io';
 
-export function benchmarkListRequest(apikey) {
+export function fileRequest(apikey, md5, contentType) {
   return (dispatch) => {
     dispatch({
-      type: LIST_REQUEST,
+      type: FILE_REQUEST,
       apikey
     });
 
-    return fetch(`${benchmarkApiUrl}/api/benchmark/v1/list`, {
+    return fetch(`${benchmarkApiUrl}/api/account/v1/download/${md5}`, {
       method: 'get',
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': contentType,
         apikey
       }
-    }).then((response) => response.json())
+    })
 
-      .then((body) => dispatch(benchmarkListResponse(body)))
+      .then((body) => dispatch(fileResponse(body)))
 
-      .catch((error) => dispatch(benchmarkListError(error)));
+      .catch((error) => dispatch(fileError(error)));
   };
 }
 
-export function benchmarkListResponse(list) {
+export function fileResponse(body) {
+  debugger
   return (dispatch) => {
     dispatch({
-      type: LIST_RESPONSE,
-      list
+      type: FILE_RESPONSE,
+      body
     });
   };
 }
-export function benchmarkListError(error) {
+export function fileError(error) {
+  debugger
   return (dispatch) => {
     dispatch({
-      type: LIST_ERROR,
+      type: FILE_ERROR,
       error
     });
   };

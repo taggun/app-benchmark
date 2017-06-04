@@ -20,7 +20,12 @@ export default class List extends Component {
               onClick={event => this.props.onSelect(event, item)}
               key={`${item.md5}${item.timestamp}`}
             >
-              {moment(item.timestamp).format('LLL')}
+              <span>
+                {moment(item.timestamp).format('LLL')}
+              </span>
+              <span className={styles.contentType}>
+                {item.contentType.split('/')[1]}
+              </span>
             </a>
           ))}
         </div>

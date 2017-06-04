@@ -2,7 +2,7 @@ export const LIST_REQUEST = 'LIST_REQUEST';
 export const LIST_RESPONSE = 'LIST_RESPONSE';
 export const LIST_ERROR = 'LIST_ERROR';
 
-const benchmarkApiUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3022' : 'https://api-benchmark.taggun.io'
+const benchmarkApiUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3022' : 'https://api-benchmark.taggun.io';
 
 export function benchmarkListRequest(apikey) {
   return (dispatch) => {
@@ -34,7 +34,6 @@ export function benchmarkListResponse(list) {
   };
 }
 export function benchmarkListError(error) {
-  debugger
   return (dispatch) => {
     dispatch({
       type: LIST_ERROR,

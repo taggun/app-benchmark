@@ -1,6 +1,5 @@
-// @flow
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import styles from './Home.css';
 
 export default class Home extends Component {
@@ -26,7 +25,7 @@ export default class Home extends Component {
   }
 
   render() {
-    const { apikey, list, error } = this.props.home;
+    const { apikey, error } = this.props.home;
     return (
       <div className={styles.landing}>
         <div data-tid="container">
@@ -64,3 +63,17 @@ export default class Home extends Component {
     );
   }
 }
+
+Home.propTypes = {
+  benchmarkListRequest: PropTypes.func,
+  home: PropTypes.shape({
+    apikey: PropTypes.string,
+    list: PropTypes.array,
+    error: PropTypes.string
+  })
+};
+
+Home.defaultProps = {
+  benchmarkListRequest: undefined,
+  home: undefined
+};

@@ -2,7 +2,7 @@ import {
   LIST_REQUEST,
   LIST_RESPONSE,
   LIST_ERROR
-} from '../actions/home';
+} from './HomeActions';
 
 const initialState = {
   apikey: undefined,

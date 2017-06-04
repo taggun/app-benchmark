@@ -4,19 +4,57 @@ import { Link } from 'react-router-dom';
 import styles from './Home.css';
 
 export default class Home extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      apikey: undefined
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleChange(event) {
+    const stateChanged = {};
+    stateChanged[event.target.id] = event.target.value;
+    this.setState(stateChanged);
+  }
+
+  handleSubmit(event) {
+    this.props.benchmarkListRequest(this.state.apikey);
+    event.preventDefault();
+  }
+
   render() {
+    const { apikey, list, error } = this.props.home;
     return (
-      <div>
-        <div className="container" data-tid="container">
+      <div className={styles.landing}>
+        <div data-tid="container">
           <div className="row">
-            <h1>TAGGUN BENCHMARK TOOL</h1>
-          </div>
-          <div className="row">
-            <form className="col s12">
+            <form className="col s12" onSubmit={this.handleSubmit}>
               <div className="row">
-                <div className="input-field col s6">
-                  <input id="apikey" type="text" className="active" />
-                  <label htmlFor="apikey">apikey</label>
+                <div className="col s6">
+                  <h2 className="col s12">TAGGUN BENCHMARK TOOL</h2>
+                  <div className="input-field col s12">
+                    <input
+                      required="true"
+                      id="apikey"
+                      type="text"
+                      className="active validate"
+                      placeholder="enter your apikey here"
+                      value={apikey}
+                      onChange={this.handleChange}
+                    />
+                    <label htmlFor="apikey" data-error="apikey is required">API KEY</label>
+                    {
+                      error ?
+                        <span className="red-text">{error}</span>
+                        : ''
+                    }
+                  </div>
+                </div>
+                <div className="col s2">
+                  <input type="submit" value="Login" className="btn-large" />
                 </div>
               </div>
             </form>

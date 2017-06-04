@@ -1,8 +1,8 @@
 {
-  "name": "electron-react-boilerplate",
-  "productName": "ElectronReact",
-  "version": "0.12.0",
-  "description": "Electron application boilerplate based on React, React Router, Webpack, React Hot Loader for rapid application development",
+  "name": "app-benchmark",
+  "productName": "TaggunBenchmark",
+  "version": "0.0.1",
+  "description": "Electron based benchmark app for Taggun",
   "scripts": {
     "test": "cross-env NODE_ENV=test BABEL_DISABLE_CACHE=1 node --trace-warnings ./test/runTests.js",
     "test-all": "npm run lint && npm run test && npm run build && npm run test-e2e",
@@ -29,8 +29,8 @@
   },
   "browserslist": "electron 1.6",
   "build": {
-    "productName": "ElectronReact",
-    "appId": "org.develar.ElectronReact",
+    "productName": "TaggunBenchmark",
+    "appId": "org.taggun.TaggunBenchmark",
     "files": [
       "dist/",
       "node_modules/",
@@ -71,28 +71,23 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/chentsulin/electron-react-boilerplate.git"
+    "url": "git@github.com:taggun/app-benchmark.git"
   },
   "author": {
-    "name": "C. T. Lin",
-    "email": "chentsulin@gmail.com",
-    "url": "https://github.com/chentsulin"
+    "name": "CK Lee",
+    "email": "ck-lee@taggun.io",
+    "url": "https://github.com/taggun"
   },
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/chentsulin/electron-react-boilerplate/issues"
+    "url": "https://github.com/taggun/app-benchmark/issues"
   },
   "keywords": [
-    "electron",
-    "boilerplate",
-    "react",
-    "redux",
-    "sass",
-    "webpack",
-    "hot",
-    "reload"
+    "taggun",
+    "ocr",
+    "benchmark"
   ],
-  "homepage": "https://github.com/chentsulin/electron-react-boilerplate#readme",
+  "homepage": "https://www.taggun.io",
   "jest": {
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/internals/mocks/fileMock.js",

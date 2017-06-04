@@ -6,14 +6,16 @@ import FileViewer from './FileViewer';
 // import styles from './Transcribe.css';
 
 export default class Transcribe extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      total: ''
+      total: '',
+      md5: '',
+      contentType: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSelectItem = this.handleSelectItem.bind(this);
   }
 
   handleChange(event) {
@@ -27,6 +29,14 @@ export default class Transcribe extends Component {
     event.preventDefault();
   }
 
+  handleSelectItem(event, item) {
+    this.setState({
+      md5: item.md5,
+      contentType: item.contentType
+    });
+    event.preventDefault();
+  }
+
   render() {
     const { list } = this.props.home;
     return (
@@ -34,10 +44,14 @@ export default class Transcribe extends Component {
         <div>
           <div className="row">
             <div className="col s3">
-              <List list={list} />
+              <List list={list} onSelect={this.handleSelectItem} />
             </div>
             <div className="col s5">
-              <FileViewer />
+              <FileViewer
+                apikey={this.props.home.apikey}
+                md5={this.state.md5}
+                contentType={this.state.contentType}
+              />
             </div>
             <div className="col s4">
               <UserForm />

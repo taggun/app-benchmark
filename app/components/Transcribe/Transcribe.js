@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import styles from './Home.css';
+import styles from './Transcribe.css';
 
-export default class Home extends Component {
+export default class Transcribe extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      apikey: '',
-      error: '',
-      list: []
+      apikey: undefined
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -28,7 +25,8 @@ export default class Home extends Component {
   }
 
   render() {
-    const { error } = this.props.home;
+    debugger
+    const { apikey, error } = this.props.home;
     return (
       <div className={styles.landing}>
         <div data-tid="container">
@@ -36,7 +34,7 @@ export default class Home extends Component {
             <form className="col s12" onSubmit={this.handleSubmit}>
               <div className="row">
                 <div className="col s6">
-                  <h2 className="col s12">TAGGUN BENCHMARK TOOL</h2>
+                  <h2 className="col s12">Transcribe</h2>
                   <div className="input-field col s12">
                     <input
                       required="true"
@@ -58,9 +56,6 @@ export default class Home extends Component {
                 <div className="col s2">
                   <input type="submit" value="Login" className="btn-large" />
                 </div>
-                <Link to="/transcribe">
-                  <i className="fa fa-arrow-left fa-3x" />
-                </Link>
               </div>
             </form>
           </div>
@@ -70,7 +65,7 @@ export default class Home extends Component {
   }
 }
 
-Home.propTypes = {
+Transcribe.propTypes = {
   benchmarkListRequest: PropTypes.func,
   home: PropTypes.shape({
     apikey: PropTypes.string,
@@ -79,11 +74,7 @@ Home.propTypes = {
   })
 };
 
-Home.defaultProps = {
+Transcribe.defaultProps = {
   benchmarkListRequest: undefined,
-  home: {
-    apikey: '',
-    list: [],
-    error: ''
-  }
+  home: undefined
 };

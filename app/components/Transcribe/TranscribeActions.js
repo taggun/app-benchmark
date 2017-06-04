@@ -1,7 +1,3 @@
-import createHistory from 'history/createHashHistory';
-
-const history = createHistory();
-
 export const LIST_REQUEST = 'LIST_REQUEST';
 export const LIST_RESPONSE = 'LIST_RESPONSE';
 export const LIST_ERROR = 'LIST_ERROR';
@@ -31,7 +27,6 @@ export function benchmarkListRequest(apikey) {
 
 export function benchmarkListResponse(list) {
   return (dispatch) => {
-    history.push('/transcribe');
     dispatch({
       type: LIST_RESPONSE,
       list

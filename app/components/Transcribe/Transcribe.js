@@ -3,19 +3,21 @@ import PropTypes from 'prop-types';
 import List from './List';
 import UserForm from './UserForm';
 import FileViewer from './FileViewer';
-// import styles from './Transcribe.css';
+import styles from './Transcribe.css';
 
 export default class Transcribe extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      total: '',
-      md5: '',
-      contentType: ''
+      target: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleSelectItem = this.handleSelectItem.bind(this);
+  }
+
+  componentDidMount() {
+    $('select').material_select();
   }
 
   handleChange(event) {
@@ -42,19 +44,39 @@ export default class Transcribe extends Component {
     return (
       <div>
         <div>
+          <div className={`${styles.topRow} row`}>
+            <div className="input-field col s3 right">
+              <select id="target" onChange={this.handleChange}>
+                <option value="https://api.taggun.io">
+                  https://api.taggun.io
+                </option>
+                <option value="https://api-s.taggun.io">
+                  https://api-s.taggun.io
+                </option>
+                <option value="http://localhost:3002">
+                  http://localhost:3002
+                </option>
+              </select>
+              <label htmlFor="target">Target</label>
+            </div>
+          </div>
           <div className="row">
             <div className="col s3">
               <List list={list} onSelect={this.handleSelectItem} />
             </div>
-            <div className="col s5">
+            <div className="col s4">
               <FileViewer
                 apikey={this.props.home.apikey}
                 md5={this.state.md5}
                 contentType={this.state.contentType}
               />
             </div>
-            <div className="col s4">
-              <UserForm />
+            <div className="col s5">
+              <UserForm
+                apikey={this.props.home.apikey}
+                md5={this.state.md5}
+                target={this.state.target}
+              />
             </div>
           </div>
         </div>

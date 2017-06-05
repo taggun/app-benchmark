@@ -10,7 +10,6 @@ export default class List extends Component {
     const { list } = this.props;
     return (
       <div className={styles.list}>
-        <h5>LIST</h5>
         <div className="collection">
           {list.map(item => (
             <a

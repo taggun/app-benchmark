@@ -7,3 +7,14 @@
 .contentType{
   margin-left: 20px;
 }
+
+.fileViewer {
+  height: 100vh;
+  overflow: auto;
+  padding-right: 3px;
+}
+
+.topRow {
+  margin-bottom: 0;
+  border-bottom: solid 1px #ffffff;
+}

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styles from './Transcribe.css';
 
 export default class FileViewer extends Component {
 
@@ -12,10 +13,10 @@ export default class FileViewer extends Component {
       ? 'http://localhost:3022'
       : 'https://api-benchmark.taggun.io';
     return (
-      <div>
+      <div className={styles.fileViewer}>
         {contentType && contentType !== 'application/pdf'
           ? <img
-            width="500"
+            width="400"
             src={`${benchmarkApiUrl}/api/benchmark/v1/file/${md5}?apikey=${apikey}`}
             alt="receipt or invoice"
           />
@@ -23,7 +24,7 @@ export default class FileViewer extends Component {
         {contentType && contentType === 'application/pdf'
           ? <iframe
             title="pdf receipt"
-            width="500"
+            width="400"
             src={`${benchmarkApiUrl}/api/benchmark/v1/file/${md5}?apikey=${apikey}`}
           />
           : ''}

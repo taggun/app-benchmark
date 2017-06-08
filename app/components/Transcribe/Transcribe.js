@@ -9,7 +9,7 @@ export default class Transcribe extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      target: ''
+      target: 'http://localhost:3002'
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,6 +36,10 @@ export default class Transcribe extends Component {
       md5: item.md5,
       contentType: item.contentType
     });
+    const benchmarkApiUrl = process.env.NODE_ENV === 'development'
+      ? 'http://localhost:3022'
+      : 'https://api-benchmark.taggun.io';
+    this.props.scanRequest(this.props.home.apikey, `${benchmarkApiUrl}/api/benchmark/v1/file/${item.md5}?apikey=${this.props.home.apikey}`, this.state.target);
     event.preventDefault();
   }
 
@@ -46,7 +50,7 @@ export default class Transcribe extends Component {
         <div>
           <div className={`${styles.topRow} row`}>
             <div className="input-field col s3 right">
-              <select id="target" onChange={this.handleChange}>
+              <select id="target" onChange={this.handleChange} value={this.state.target}>
                 <option value="https://api.taggun.io">
                   https://api.taggun.io
                 </option>
@@ -76,6 +80,7 @@ export default class Transcribe extends Component {
                 apikey={this.props.home.apikey}
                 md5={this.state.md5}
                 target={this.state.target}
+                result={this.props.userForm.result}
               />
             </div>
           </div>
@@ -91,10 +96,14 @@ Transcribe.propTypes = {
     apikey: PropTypes.string,
     list: PropTypes.array,
     error: PropTypes.string
-  })
+  }),
+  userForm: PropTypes.object,
+  scanRequest: PropTypes.func
 };
 
 Transcribe.defaultProps = {
   benchmarkListRequest: undefined,
-  home: undefined
+  home: undefined,
+  userForm: {},
+  scanRequest: undefined
 };

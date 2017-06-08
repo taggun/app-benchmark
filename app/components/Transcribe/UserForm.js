@@ -23,6 +23,7 @@ export default class UserForm extends Component {
   }
 
   render() {
+    console.log(this.props.result);
     return (
       <div>
         <form className="col 12" onSubmit={this.handleSubmit}>
@@ -31,15 +32,16 @@ export default class UserForm extends Component {
               <div className="input-field browser-default col s12">
                 <input
                   required="true"
-                  id="total"
+                  id="totalAmount"
                   type="text"
-                  value={this.state.total}
+                  value={this.state.totalAmount}
                   onChange={this.handleChange}
                 />
                 <label htmlFor="total" data-error="Total is required">
                   Total
                 </label>
               </div>
+              {this.props.result.totalAmount && this.props.result.totalAmount.data}
             </div>
             <div className="row">
               <div className="col s2">
@@ -60,10 +62,12 @@ UserForm.propTypes = {
     md5: PropTypes.string,
     contentType: PropTypes.string,
     file: PropTypes.any
-  })
+  }),
+  result: PropTypes.object
 };
 
 UserForm.defaultProps = {
   fileRequest: undefined,
-  transcribe: undefined
+  transcribe: {},
+  result: {}
 };

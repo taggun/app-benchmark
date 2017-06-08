@@ -26,7 +26,6 @@ export function fileRequest(apikey, md5, contentType) {
 }
 
 export function fileResponse(body) {
-  debugger
   return (dispatch) => {
     dispatch({
       type: FILE_RESPONSE,
@@ -35,7 +34,6 @@ export function fileResponse(body) {
   };
 }
 export function fileError(error) {
-  debugger
   return (dispatch) => {
     dispatch({
       type: FILE_ERROR,

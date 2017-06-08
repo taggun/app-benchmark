@@ -5,6 +5,7 @@ import { routerMiddleware, routerActions } from 'react-router-redux';
 import { createLogger } from 'redux-logger';
 import rootReducer from '../reducers';
 import * as homeActions from '../components/Home/HomeActions';
+import * as userFormActions from '../components/Transcribe/UserFormActions';
 import * as transcribeActions from '../components/Transcribe/TranscribeActions';
 import * as counterActions from '../components/Counter/CounterActions';
 
@@ -34,6 +35,7 @@ const configureStore = (initialState) => {
     ...homeActions,
     ...counterActions,
     ...transcribeActions,
+    ...userFormActions,
     ...routerActions,
   };
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose

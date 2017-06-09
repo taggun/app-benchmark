@@ -14,7 +14,7 @@ export default class List extends Component {
           {list.map(item => (
             <a
               href="#!"
-              className="collection-item"
+              className={`collection-item ${item.md5 === this.props.activeMd5 ? 'active' : ''}`}
               value={item}
               onClick={event => this.props.onSelect(event, item)}
               key={`${item.md5}${item.timestamp}`}
@@ -35,10 +35,12 @@ export default class List extends Component {
 
 List.propTypes = {
   list: PropTypes.array,
-  onSelect: PropTypes.func
+  onSelect: PropTypes.func,
+  activeMd5: PropTypes.string,
 };
 
 List.defaultProps = {
   list: [],
-  onSelect: undefined
+  onSelect: undefined,
+  activeMd5: undefined
 };

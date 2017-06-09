@@ -39,10 +39,12 @@ export default class Transcribe extends Component {
     const benchmarkApiUrl = process.env.NODE_ENV === 'development'
       ? 'http://localhost:3022'
       : 'https://api-benchmark.taggun.io';
-    this.props.scanRequest(this.props.home.apikey,
+    this.props.scanRequest(
+      this.props.home.apikey,
       `${benchmarkApiUrl}/api/benchmark/v1/file/${item.md5}?apikey=${this.props.home.apikey}`,
       this.state.target,
-      this.props.ipAddress);
+      this.props.ipAddress
+    );
     event.preventDefault();
   }
 
@@ -53,7 +55,11 @@ export default class Transcribe extends Component {
         <div>
           <div className={`${styles.topRow} row`}>
             <div className="input-field col s3 right">
-              <select id="target" onChange={this.handleChange} value={this.state.target}>
+              <select
+                id="target"
+                onChange={this.handleChange}
+                value={this.state.target}
+              >
                 <option value="https://api.taggun.io">
                   https://api.taggun.io
                 </option>
@@ -69,7 +75,11 @@ export default class Transcribe extends Component {
           </div>
           <div className="row">
             <div className="col s3">
-              <List list={list} onSelect={this.handleSelectItem} />
+              <List
+                list={list}
+                onSelect={this.handleSelectItem}
+                activeMd5={this.state.md5}
+              />
             </div>
             <div className="col s4">
               <FileViewer
@@ -83,7 +93,9 @@ export default class Transcribe extends Component {
                 apikey={this.props.home.apikey}
                 md5={this.state.md5}
                 target={this.state.target}
-                ipAddress={this.state.userIpAddress || this.state.callerIpAddress}
+                ipAddress={
+                  this.state.userIpAddress || this.state.callerIpAddress
+                }
                 result={this.props.userForm.result}
               />
             </div>

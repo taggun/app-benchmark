@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
+import styles from './Transcribe.css';
 
 const internals = {};
 internals.renderData = item => {
@@ -111,17 +112,25 @@ export default class UserForm extends Component {
               </div>
             </div>
           </div>
-          <div className="col s12">
-            <h6>Amounts</h6>
-            {this.props.result.amounts.map(amount => <span className="col s2">{amount.data}</span>)}
-          </div>
-          <div className="col s12">
-            <h6>Line Amounts</h6>
-            {this.props.result.lineAmounts.map(amount => <span className="col s2">{amount.data}</span>)}
-          </div>
-          <div className="col s12">
-            <h6>Numbers</h6>
-            {this.props.result.numbers.map(number => <span className="col s4">{number.data}</span>)}
+          <div className={styles.numbers}>
+            <div className="col s12">
+              <h6>Amounts</h6>
+              {this.props.result.amounts.map(amount => (
+                <span className="col s2">{amount.data}</span>
+              ))}
+            </div>
+            <div className="col s12">
+              <h6>Line Amounts</h6>
+              {this.props.result.lineAmounts.map(amount => (
+                <span className="col s2">{amount.data}</span>
+              ))}
+            </div>
+            <div className="col s12">
+              <h6>Numbers</h6>
+              {this.props.result.numbers.map(number => (
+                <span className="col s4">{number.data}</span>
+              ))}
+            </div>
           </div>
         </form>
       </div>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 export default class UserForm extends Component {
   constructor(props) {
@@ -23,13 +24,12 @@ export default class UserForm extends Component {
   }
 
   render() {
-    console.log(this.props.result);
     return (
       <div>
-        <form className="col 12" onSubmit={this.handleSubmit}>
-          <div className="col s12">
-            <div className="row">
-              <div className="input-field browser-default col s12">
+        <form onSubmit={this.handleSubmit}>
+          <div>
+            <div className="row valign-wrapper">
+              <div className="input-field browser-default col s6">
                 <input
                   required="true"
                   id="totalAmount"
@@ -37,11 +37,60 @@ export default class UserForm extends Component {
                   value={this.state.totalAmount}
                   onChange={this.handleChange}
                 />
-                <label htmlFor="total" data-error="Total is required">
+                <label htmlFor="totalAmount">
                   Total
                 </label>
               </div>
-              {this.props.result.totalAmount && this.props.result.totalAmount.data}
+              <div className="col s6">
+                {this.props.result.totalAmount.data}
+              </div>
+            </div>
+            <div className="valign-wrapper">
+              <div className="input-field browser-default col s6">
+                <input
+                  required="true"
+                  id="taxAmount"
+                  type="text"
+                  value={this.state.taxAmount}
+                  onChange={this.handleChange}
+                />
+                <label htmlFor="taxAmount">
+                  Tax
+                </label>
+              </div>
+              <div className="col s6">
+                {this.props.result.taxAmount.data}
+              </div>
+            </div>
+            <div className="valign-wrapper">
+              <div className="input-field browser-default col s6">
+                <input
+                  required="true"
+                  id="date"
+                  type="date"
+                  value={this.state.date}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div className="col s6">
+                {this.props.result.date.data && moment.utc(this.props.result.date.data).format('LL')}
+              </div>
+            </div>
+            <div className="valign-wrapper">
+              <div className="input-field browser-default col s6">
+                <input
+                  id="merchantName"
+                  type="text"
+                  value={this.state.merchantName}
+                  onChange={this.handleChange}
+                />
+                <label htmlFor="merchantName">
+                  Merchant name
+                </label>
+              </div>
+              <div className="col s6">
+                {this.props.result.merchantName.data}
+              </div>
             </div>
             <div className="row">
               <div className="col s2">
@@ -63,11 +112,21 @@ UserForm.propTypes = {
     contentType: PropTypes.string,
     file: PropTypes.any
   }),
-  result: PropTypes.object
+  result: PropTypes.shape({
+    totalAmount: PropTypes.object,
+    taxAmount: PropTypes.object,
+    date: PropTypes.object,
+    merchantName: PropTypes.object
+  })
 };
 
 UserForm.defaultProps = {
   fileRequest: undefined,
   transcribe: {},
-  result: {}
+  result: {
+    totalAmount: {},
+    taxAmount: {},
+    date: {},
+    merchantName: {}
+  }
 };

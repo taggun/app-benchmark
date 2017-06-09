@@ -39,7 +39,10 @@ export default class Transcribe extends Component {
     const benchmarkApiUrl = process.env.NODE_ENV === 'development'
       ? 'http://localhost:3022'
       : 'https://api-benchmark.taggun.io';
-    this.props.scanRequest(this.props.home.apikey, `${benchmarkApiUrl}/api/benchmark/v1/file/${item.md5}?apikey=${this.props.home.apikey}`, this.state.target);
+    this.props.scanRequest(this.props.home.apikey,
+      `${benchmarkApiUrl}/api/benchmark/v1/file/${item.md5}?apikey=${this.props.home.apikey}`,
+      this.state.target,
+      this.props.ipAddress);
     event.preventDefault();
   }
 
@@ -80,6 +83,7 @@ export default class Transcribe extends Component {
                 apikey={this.props.home.apikey}
                 md5={this.state.md5}
                 target={this.state.target}
+                ipAddress={this.state.userIpAddress || this.state.callerIpAddress}
                 result={this.props.userForm.result}
               />
             </div>
@@ -98,12 +102,14 @@ Transcribe.propTypes = {
     error: PropTypes.string
   }),
   userForm: PropTypes.object,
-  scanRequest: PropTypes.func
+  scanRequest: PropTypes.func,
+  ipAddress: PropTypes.string
 };
 
 Transcribe.defaultProps = {
   benchmarkListRequest: undefined,
-  home: undefined,
+  home: {},
   userForm: {},
-  scanRequest: undefined
+  scanRequest: undefined,
+  ipAddress: undefined
 };

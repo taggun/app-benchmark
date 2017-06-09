@@ -4,8 +4,7 @@ export const SCAN_ERROR = 'SCAN_ERROR';
 
 const benchmarkApiUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3022' : 'https://api-benchmark.taggun.io';
 
-export function scanRequest(apikey, url, target) {
-
+export function scanRequest(apikey, url, target, ipAddress) {
   return (dispatch) => {
     dispatch({
       type: SCAN_REQUEST,
@@ -16,7 +15,8 @@ export function scanRequest(apikey, url, target) {
       method: 'post',
       body: JSON.stringify({
         url,
-        target
+        target,
+        ipAddress
       }),
       headers: {
         'Content-Type': 'application/json',

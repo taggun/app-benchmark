@@ -2,6 +2,19 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 
+const internals = {};
+internals.renderData = item => {
+  if (!item || !item.confidenceLevel) {
+    return '';
+  }
+  if (moment(item.data, moment.ISO_8601, true).isValid()) {
+    return `${moment
+      .utc(item.data)
+      .format('LL')} [${item.confidenceLevel.toFixed(2)}]`;
+  }
+  return `${item.data} [${item.confidenceLevel.toFixed(2)}]`;
+};
+
 export default class UserForm extends Component {
   constructor(props) {
     super(props);
@@ -42,7 +55,7 @@ export default class UserForm extends Component {
                 </label>
               </div>
               <div className="col s6">
-                {this.props.result.totalAmount.data}
+                {internals.renderData(this.props.result.totalAmount)}
               </div>
             </div>
             <div className="valign-wrapper">
@@ -59,7 +72,7 @@ export default class UserForm extends Component {
                 </label>
               </div>
               <div className="col s6">
-                {this.props.result.taxAmount.data}
+                {internals.renderData(this.props.result.taxAmount)}
               </div>
             </div>
             <div className="valign-wrapper">
@@ -73,7 +86,7 @@ export default class UserForm extends Component {
                 />
               </div>
               <div className="col s6">
-                {this.props.result.date.data && moment.utc(this.props.result.date.data).format('LL')}
+                {internals.renderData(this.props.result.date)}
               </div>
             </div>
             <div className="valign-wrapper">
@@ -89,7 +102,7 @@ export default class UserForm extends Component {
                 </label>
               </div>
               <div className="col s6">
-                {this.props.result.merchantName.data}
+                {internals.renderData(this.props.result.merchantName)}
               </div>
             </div>
             <div className="row">
@@ -97,6 +110,18 @@ export default class UserForm extends Component {
                 <input type="submit" value="Save" className="btn" />
               </div>
             </div>
+          </div>
+          <div className="col s12">
+            <h6>Amounts</h6>
+            {this.props.result.amounts.map(amount => <span className="col s2">{amount.data}</span>)}
+          </div>
+          <div className="col s12">
+            <h6>Line Amounts</h6>
+            {this.props.result.lineAmounts.map(amount => <span className="col s2">{amount.data}</span>)}
+          </div>
+          <div className="col s12">
+            <h6>Numbers</h6>
+            {this.props.result.numbers.map(number => <span className="col s4">{number.data}</span>)}
           </div>
         </form>
       </div>
@@ -116,7 +141,10 @@ UserForm.propTypes = {
     totalAmount: PropTypes.object,
     taxAmount: PropTypes.object,
     date: PropTypes.object,
-    merchantName: PropTypes.object
+    merchantName: PropTypes.object,
+    amounts: PropTypes.array,
+    lineAmounts: PropTypes.array,
+    numbers: PropTypes.array
   })
 };
 
@@ -127,6 +155,9 @@ UserForm.defaultProps = {
     totalAmount: {},
     taxAmount: {},
     date: {},
-    merchantName: {}
+    merchantName: {},
+    amounts: [],
+    lineAmounts: [],
+    numbers: []
   }
 };

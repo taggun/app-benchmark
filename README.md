@@ -1,4 +1,4 @@
-# app-benchmark is an benchmarking tool made for [Taggun](https://www.taggun.io)
+# app-benchmark is built for [Taggun](https://www.taggun.io) Receipt OCR
 
 This tool helps Taggun continuously improve the accuracy of the OCR receipt scan and data extraction. WIP.
 

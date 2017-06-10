@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
+import { Switch, Route } from 'react-router';
 import PropTypes from 'prop-types';
+import createHistory from 'history/createHashHistory';
 import List from './List';
-import UserForm from './UserForm';
-import FileViewer from './FileViewer';
+import Details from './Details';
 import styles from './Transcribe.css';
+
+const history = createHistory();
 
 export default class Transcribe extends Component {
   constructor(props) {
@@ -38,9 +41,16 @@ export default class Transcribe extends Component {
   }
 
   handleSelectItem(event, item) {
+    history.push(`/transcribe/details/${item.md5}`);
     this.setState({
       md5: item.md5,
-      contentType: item.contentType
+      contentType: item.contentType,
+      userResult: {
+        totalAmount: undefined,
+        taxAmount: undefined,
+        date: undefined,
+        merchantName: undefined
+      }
     });
     const benchmarkApiUrl = process.env.NODE_ENV === 'development'
       ? 'http://localhost:3022'
@@ -57,6 +67,17 @@ export default class Transcribe extends Component {
 
   render() {
     const { list } = this.props.home;
+
+    const DetailsPage = props => (
+      <Details
+        contentType={this.state.contentType}
+        apikey={this.props.home.apikey}
+        target={this.state.target}
+        ocrResult={this.props.userForm.result}
+        {...props}
+      />
+    );
+
     return (
       <div>
         <div>
@@ -88,21 +109,9 @@ export default class Transcribe extends Component {
                 activeMd5={this.state.md5}
               />
             </div>
-            <div className="col s4">
-              <FileViewer
-                apikey={this.props.home.apikey}
-                md5={this.state.md5}
-                contentType={this.state.contentType}
-              />
-            </div>
-            <div className="col s5">
-              <UserForm
-                apikey={this.props.home.apikey}
-                md5={this.state.md5}
-                target={this.state.target}
-                result={this.props.userForm.result}
-              />
-            </div>
+            <Switch>
+              <Route path="/transcribe/details/:md5" render={DetailsPage} />
+            </Switch>
           </div>
         </div>
       </div>
@@ -117,7 +126,9 @@ Transcribe.propTypes = {
     list: PropTypes.array,
     error: PropTypes.string
   }),
-  userForm: PropTypes.object,
+  userForm: PropTypes.shape({
+    result: PropTypes.object
+  }),
   scanRequest: PropTypes.func
 };
 

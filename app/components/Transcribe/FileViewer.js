@@ -4,9 +4,6 @@ import styles from './Transcribe.css';
 
 export default class FileViewer extends Component {
 
-  componentDidMount() {
-  }
-
   render() {
     const { apikey, md5, contentType } = this.props;
     const benchmarkApiUrl = process.env.NODE_ENV === 'development'

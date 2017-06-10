@@ -1,3 +1,5 @@
+/* eslint-disable react/no-array-index-key */
+
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
@@ -20,10 +22,51 @@ export default class UserForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      total: ''
+      totalAmount: '',
+      taxAmount: '',
+      date: '',
+      merchantName: ''
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.setField = this.setField.bind(this);
+  }
+
+  componentWillReceiveProps(newProps) {
+    if (this.props.md5 === newProps.md5) {
+      this.setState({
+        totalAmount: '',
+        taxAmount: '',
+        date: '',
+        merchantName: ''
+      });
+    }
+  }
+
+  componentDidUpdate() {
+    this.setField('totalAmount');
+    this.setField('taxAmount');
+    this.setField('date');
+    this.setField('merchantName');
+    Materialize.updateTextFields();
+  }
+
+  setField(fieldName) {
+    if (
+      !this.state[fieldName] &&
+      (this.props.userResult[fieldName] || this.props.ocrResult[fieldName].data)
+    ) {
+      const stateChanged = {};
+      const result =
+        this.props.userResult[fieldName] ||
+        this.props.ocrResult[fieldName].data;
+      if (moment(result, moment.ISO_8601, true).isValid()) {
+        stateChanged[fieldName] = `${moment.utc(result).format('YYYY-MM-DD')}`;
+      } else {
+        stateChanged[fieldName] = result;
+      }
+      this.setState(stateChanged);
+    }
   }
 
   handleChange(event) {
@@ -56,7 +99,7 @@ export default class UserForm extends Component {
                 </label>
               </div>
               <div className="col s6">
-                {internals.renderData(this.props.result.totalAmount)}
+                {internals.renderData(this.props.ocrResult.totalAmount)}
               </div>
             </div>
             <div className="valign-wrapper">
@@ -73,7 +116,7 @@ export default class UserForm extends Component {
                 </label>
               </div>
               <div className="col s6">
-                {internals.renderData(this.props.result.taxAmount)}
+                {internals.renderData(this.props.ocrResult.taxAmount)}
               </div>
             </div>
             <div className="valign-wrapper">
@@ -87,7 +130,7 @@ export default class UserForm extends Component {
                 />
               </div>
               <div className="col s6">
-                {internals.renderData(this.props.result.date)}
+                {internals.renderData(this.props.ocrResult.date)}
               </div>
             </div>
             <div className="valign-wrapper">
@@ -103,7 +146,7 @@ export default class UserForm extends Component {
                 </label>
               </div>
               <div className="col s6">
-                {internals.renderData(this.props.result.merchantName)}
+                {internals.renderData(this.props.ocrResult.merchantName)}
               </div>
             </div>
             <div className="row">
@@ -115,20 +158,26 @@ export default class UserForm extends Component {
           <div className={styles.numbers}>
             <div className="col s12">
               <h6>Amounts</h6>
-              {this.props.result.amounts.map(amount => (
-                <span className="col s2">{amount.data}</span>
+              {this.props.ocrResult.amounts.map((amount, i) => (
+                <span key={`amounts-${i}`} className="col s2">
+                  {amount.data}
+                </span>
               ))}
             </div>
             <div className="col s12">
               <h6>Line Amounts</h6>
-              {this.props.result.lineAmounts.map(amount => (
-                <span className="col s2">{amount.data}</span>
+              {this.props.ocrResult.lineAmounts.map((amount, i) => (
+                <span key={`lineAmounts-${i}`} className="col s2">
+                  {amount.data}
+                </span>
               ))}
             </div>
             <div className="col s12">
               <h6>Numbers</h6>
-              {this.props.result.numbers.map(number => (
-                <span className="col s4">{number.data}</span>
+              {this.props.ocrResult.numbers.map((number, i) => (
+                <span key={`numbers-${i}`} className="col s4">
+                  {number.data}
+                </span>
               ))}
             </div>
           </div>
@@ -139,6 +188,7 @@ export default class UserForm extends Component {
 }
 
 UserForm.propTypes = {
+  md5: PropTypes.string,
   fileRequest: PropTypes.func,
   transcribe: PropTypes.shape({
     apikey: PropTypes.string,
@@ -146,7 +196,7 @@ UserForm.propTypes = {
     contentType: PropTypes.string,
     file: PropTypes.any
   }),
-  result: PropTypes.shape({
+  ocrResult: PropTypes.shape({
     totalAmount: PropTypes.object,
     taxAmount: PropTypes.object,
     date: PropTypes.object,
@@ -154,13 +204,20 @@ UserForm.propTypes = {
     amounts: PropTypes.array,
     lineAmounts: PropTypes.array,
     numbers: PropTypes.array
+  }),
+  userResult: PropTypes.shape({
+    totalAmount: PropTypes.number,
+    taxAmount: PropTypes.number,
+    date: PropTypes.ISO_8601,
+    merchantName: PropTypes.string
   })
 };
 
 UserForm.defaultProps = {
+  md5: undefined,
   fileRequest: undefined,
   transcribe: {},
-  result: {
+  ocrResult: {
     totalAmount: {},
     taxAmount: {},
     date: {},
@@ -168,5 +225,11 @@ UserForm.defaultProps = {
     amounts: [],
     lineAmounts: [],
     numbers: []
+  },
+  userResult: {
+    totalAmount: undefined,
+    taxAmount: undefined,
+    date: undefined,
+    merchantName: undefined
   }
 };

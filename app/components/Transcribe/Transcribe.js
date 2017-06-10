@@ -17,7 +17,13 @@ export default class Transcribe extends Component {
   }
 
   componentDidMount() {
-    $('select').material_select();
+    $('select')
+      .on('change', event => {
+        const stateChanged = {};
+        stateChanged[event.target.id] = event.target.value;
+        this.setState(stateChanged);
+      })
+      .material_select();
   }
 
   handleChange(event) {

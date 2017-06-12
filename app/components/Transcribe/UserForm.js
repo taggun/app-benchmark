@@ -76,7 +76,7 @@ export default class UserForm extends Component {
   }
 
   handleSubmit(event) {
-    this.props.fileRequest(this.props.transcribe.apikey, this.props.transcribe);
+    this.props.saveRequest(this.state);
     event.preventDefault();
   }
 
@@ -188,8 +188,9 @@ export default class UserForm extends Component {
 }
 
 UserForm.propTypes = {
+  id: PropTypes.string,
   md5: PropTypes.string,
-  fileRequest: PropTypes.func,
+  saveRequest: PropTypes.func,
   transcribe: PropTypes.shape({
     apikey: PropTypes.string,
     md5: PropTypes.string,
@@ -214,8 +215,9 @@ UserForm.propTypes = {
 };
 
 UserForm.defaultProps = {
+  id: undefined,
   md5: undefined,
-  fileRequest: undefined,
+  saveRequest: undefined,
   transcribe: {},
   ocrResult: {
     totalAmount: {},

@@ -16,11 +16,13 @@ export default class Details extends Component {
         </div>
         <div className="col s5">
           <UserForm
+            id={this.props.id}
             apikey={this.props.apikey}
             md5={this.props.match.params.md5}
             target={this.props.target}
             ocrResult={this.props.ocrResult}
             userResult={this.props.userResult}
+            saveRequest={this.props.saveRequest}
           />
         </div>
       </div>
@@ -50,7 +52,9 @@ Details.propTypes = {
     taxAmount: PropTypes.number,
     date: PropTypes.ISO_8601,
     merchantName: PropTypes.string,
-  })
+  }),
+  id: PropTypes.string,
+  saveRequest: PropTypes.func
 };
 
 Details.defaultProps = {
@@ -74,5 +78,7 @@ Details.defaultProps = {
     taxAmount: undefined,
     date: undefined,
     merchantName: undefined
-  }
+  },
+  id: undefined,
+  saveRequest: undefined
 };

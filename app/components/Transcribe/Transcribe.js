@@ -15,7 +15,7 @@ export default class Transcribe extends Component {
       target: 'http://localhost:3002'
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.saveRequest = this.saveRequest.bind(this);
     this.handleSelectItem = this.handleSelectItem.bind(this);
   }
 
@@ -35,22 +35,17 @@ export default class Transcribe extends Component {
     this.setState(stateChanged);
   }
 
-  handleSubmit(event) {
-    this.props.benchmarkListRequest(this.state.apikey);
-    event.preventDefault();
+  saveRequest(benchmark) {
+    this.props.saveRequest(this.state.apikey, this.state.id, benchmark);
   }
 
   handleSelectItem(event, item) {
     history.push(`/transcribe/details/${item.md5}`);
     this.setState({
+      id: item._id,
       md5: item.md5,
       contentType: item.contentType,
-      userResult: {
-        totalAmount: undefined,
-        taxAmount: undefined,
-        date: undefined,
-        merchantName: undefined
-      }
+      userResult: item.benchmark
     });
     const benchmarkApiUrl = process.env.NODE_ENV === 'development'
       ? 'http://localhost:3022'
@@ -70,10 +65,13 @@ export default class Transcribe extends Component {
 
     const DetailsPage = props => (
       <Details
+        id={this.state.id}
         contentType={this.state.contentType}
         apikey={this.props.home.apikey}
         target={this.state.target}
         ocrResult={this.props.userForm.result}
+        userResult={this.state.userResult}
+        saveRequest={this.saveRequest}
         {...props}
       />
     );
@@ -120,7 +118,7 @@ export default class Transcribe extends Component {
 }
 
 Transcribe.propTypes = {
-  benchmarkListRequest: PropTypes.func,
+  saveRequest: PropTypes.func,
   home: PropTypes.shape({
     apikey: PropTypes.string,
     list: PropTypes.array,
@@ -133,7 +131,7 @@ Transcribe.propTypes = {
 };
 
 Transcribe.defaultProps = {
-  benchmarkListRequest: undefined,
+  saveRequest: undefined,
   home: {},
   userForm: {},
   scanRequest: undefined

@@ -16,6 +16,6 @@ This tool helps Taggun continuously improve the accuracy of the OCR receipt scan
 - [ ] Bulk upload function
 
 ### Screenshot
-![](screenshot.png | width=100)
+![](screenshot.png)
 
 *This app takes advantage of [electron-react-boilerplate](https://github.com/chentsulin/electron-react-boilerplate)*

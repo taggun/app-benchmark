@@ -7,7 +7,7 @@ This tool helps Taggun continuously improve the accuracy of the OCR receipt scan
 ### TODOs
 - [x] View image
 - [x] View OCR data
-- [ ] Fix target issue
+- [x] Fix target issue
 - [ ] Save manually transcribed data
 - [ ] Run benchmark
 - [ ] Preview PDF
@@ -15,5 +15,7 @@ This tool helps Taggun continuously improve the accuracy of the OCR receipt scan
 - [ ] User upload function
 - [ ] Bulk upload function
 
+### Screenshot
+![](screenshot.png | width=100)
 
 *This app takes advantage of [electron-react-boilerplate](https://github.com/chentsulin/electron-react-boilerplate)*

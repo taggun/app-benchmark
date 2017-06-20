@@ -88,7 +88,6 @@ export default class UserForm extends Component {
             <div className="row valign-wrapper">
               <div className="input-field browser-default col s6">
                 <input
-                  required="true"
                   id="totalAmount"
                   type="text"
                   value={this.state.totalAmount}
@@ -105,7 +104,6 @@ export default class UserForm extends Component {
             <div className="valign-wrapper">
               <div className="input-field browser-default col s6">
                 <input
-                  required="true"
                   id="taxAmount"
                   type="text"
                   value={this.state.taxAmount}
@@ -122,7 +120,6 @@ export default class UserForm extends Component {
             <div className="valign-wrapper">
               <div className="input-field browser-default col s6">
                 <input
-                  required="true"
                   id="date"
                   type="date"
                   value={this.state.date}

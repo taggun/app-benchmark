@@ -70,6 +70,7 @@ export default class Transcribe extends Component {
         apikey={this.props.home.apikey}
         target={this.state.target}
         ocrResult={this.props.userForm.result}
+        userForm={this.props.userForm}
         userResult={this.state.userResult}
         saveRequest={this.saveRequest}
         {...props}
@@ -122,10 +123,12 @@ Transcribe.propTypes = {
   home: PropTypes.shape({
     apikey: PropTypes.string,
     list: PropTypes.array,
-    error: PropTypes.string
+    error: PropTypes.string,
   }),
   userForm: PropTypes.shape({
-    result: PropTypes.object
+    result: PropTypes.object,
+    error: PropTypes.string,
+    isLoading: PropTypes.bool
   }),
   scanRequest: PropTypes.func
 };

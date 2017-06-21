@@ -23,6 +23,7 @@ export default class Details extends Component {
             ocrResult={this.props.ocrResult}
             userResult={this.props.userResult}
             saveRequest={this.props.saveRequest}
+            userForm={this.props.userForm}
           />
         </div>
       </div>
@@ -51,10 +52,14 @@ Details.propTypes = {
     totalAmount: PropTypes.number,
     taxAmount: PropTypes.number,
     date: PropTypes.ISO_8601,
-    merchantName: PropTypes.string,
+    merchantName: PropTypes.string
   }),
   id: PropTypes.string,
-  saveRequest: PropTypes.func
+  saveRequest: PropTypes.func,
+  userForm: PropTypes.shape({
+    error: PropTypes.string,
+    isLoading: PropTypes.bool
+  })
 };
 
 Details.defaultProps = {

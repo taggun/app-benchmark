@@ -151,6 +151,11 @@ export default class UserForm extends Component {
                 <input type="submit" value="Save" className="btn" />
               </div>
             </div>
+            {
+              this.props.userForm.error ?
+                <span className="red-text">{ this.props.userForm.error }</span>
+                : ''
+            }
           </div>
           <div className={styles.numbers}>
             <div className="col s12">
@@ -207,7 +212,13 @@ UserForm.propTypes = {
     totalAmount: PropTypes.number,
     taxAmount: PropTypes.number,
     date: PropTypes.ISO_8601,
-    merchantName: PropTypes.string
+    merchantName: PropTypes.string,
+    error: PropTypes.string,
+    isLoading: PropTypes.bool
+  }),
+  userForm: PropTypes.shape({
+    error: PropTypes.string,
+    isLoading: PropTypes.bool
   })
 };
 
@@ -230,5 +241,9 @@ UserForm.defaultProps = {
     taxAmount: undefined,
     date: undefined,
     merchantName: undefined
+  },
+  userForm: {
+    error: undefined,
+    isLoading: undefined
   }
 };

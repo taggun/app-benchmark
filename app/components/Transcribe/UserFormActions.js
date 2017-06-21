@@ -70,13 +70,21 @@ export function saveRequest(apikey, id, benchmark) {
       }
     }).then((response) => response.json())
 
-      .then((result) => dispatch(scanResponse(result)))
+      .then((result) => dispatch(saveResponse(result)))
 
-      .catch((error) => dispatch(scanError(error)));
+      .catch((error) => dispatch(saveError(error)));
   };
 }
 
 export function saveResponse(result) {
+  if (result.error) {
+    return (dispatch) => {
+      dispatch({
+        type: SAVE_ERROR,
+        errorMessage: result.message
+      });
+    };
+  }
   return (dispatch) => {
     dispatch({
       type: SAVE_RESPONSE,

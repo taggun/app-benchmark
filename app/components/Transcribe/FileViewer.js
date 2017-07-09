@@ -11,20 +11,11 @@ export default class FileViewer extends Component {
       : 'https://api-benchmark.taggun.io';
     return (
       <div className={styles.fileViewer}>
-        {contentType && contentType !== 'application/pdf'
-          ? <img
-            width="400"
-            src={`${benchmarkApiUrl}/api/benchmark/v1/file/${md5}?apikey=${apikey}`}
-            alt="receipt or invoice"
-          />
-          : ''}
-        {contentType && contentType === 'application/pdf'
-          ? <iframe
-            title="pdf receipt"
-            width="400"
-            src={`${benchmarkApiUrl}/api/benchmark/v1/file/${md5}?apikey=${apikey}`}
-          />
-          : ''}
+        <img
+          width="400"
+          src={`${benchmarkApiUrl}/api/benchmark/v1/file/${md5}?apikey=${apikey}`}
+          alt="receipt or invoice"
+        />
       </div>
     );
   }

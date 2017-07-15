@@ -19,10 +19,16 @@ export default class List extends Component {
               onClick={event => this.props.onSelect(event, item)}
               key={`${item.md5}${item.timestamp}`}
             >
-              <span>
+              <span className="hide-on-med-and-down">
                 {moment(item.timestamp).format('LLL')}
               </span>
-              <span className={styles.contentType}>
+              <span className="hide-on-small-and-down hide-on-large-only">
+                {moment(item.timestamp).format('LL')}
+              </span>
+              <span className="show-on-small">
+                &nbsp;
+              </span>
+              <span className={`hide-on-med-and-down ${styles.contentType}`}>
                 {item.contentType.split('/')[1]}
               </span>
               <Badge

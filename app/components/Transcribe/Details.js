@@ -14,7 +14,7 @@ export default class Details extends Component {
             contentType={this.props.contentType}
           />
         </div>
-        <div className="col s5">
+        <div className="col s4 l5">
           <UserForm
             id={this.props.id}
             apikey={this.props.apikey}

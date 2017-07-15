@@ -114,7 +114,7 @@ export default class Transcribe extends Component {
             </div>
           </div>
           <div className="row">
-            <div className="col s3">
+            <div className="col s5 l3">
               <List
                 list={list}
                 onSelect={this.handleSelectItem}

@@ -2,21 +2,23 @@
   height: 100vh;
   overflow: auto;
   padding-right: 3px;
+  font-size: 0.9em;
 }
 
 .list .badge {
   min-width: 1.5rem;
-  margin-left: 6px;
+  margin-left: 2px;
+  font-size: 0.8em;
 }
 
 .list .badgeInvisible {
   min-width: 1.5rem;
-  margin-left: 6px;
+  margin-left: 2px;
   visibility: hidden;  
 }
 
 .contentType{
-  margin-left: 20px;
+  margin-left: 6px;
 }
 
 .fileViewer {

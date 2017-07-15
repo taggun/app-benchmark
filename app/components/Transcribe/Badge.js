@@ -8,7 +8,7 @@ export default class Badge extends Component {
   render() {
     return (
       <span
-        className={`new badge ${this.props.color} ${this.props.isVisible ? styles.badge : styles.badgeInvisible}`}
+        className={`hide-on-med-and-down new badge ${this.props.color} ${this.props.isVisible ? styles.badge : styles.badgeInvisible}`}
         data-badge-caption={this.props.text}
       />
     );

@@ -4,6 +4,17 @@
   padding-right: 3px;
 }
 
+.list .badge {
+  min-width: 1.5rem;
+  margin-left: 6px;
+}
+
+.list .badgeInvisible {
+  min-width: 1.5rem;
+  margin-left: 6px;
+  visibility: hidden;  
+}
+
 .contentType{
   margin-left: 20px;
 }

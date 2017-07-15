@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import styles from './Transcribe.css';
+import Badge from './Badge';
 
 export default class List extends Component {
   render() {
@@ -15,7 +16,6 @@ export default class List extends Component {
             <a
               href="#!"
               className={`collection-item ${item.md5 === this.props.activeMd5 ? 'active' : ''}`}
-              value={item}
               onClick={event => this.props.onSelect(event, item)}
               key={`${item.md5}${item.timestamp}`}
             >
@@ -25,6 +25,26 @@ export default class List extends Component {
               <span className={styles.contentType}>
                 {item.contentType.split('/')[1]}
               </span>
+              <Badge
+                color="grey"
+                text="M"
+                isVisible={item.benchmark && item.benchmark.merchantName}
+              />
+              <Badge
+                color="grey"
+                text="D"
+                isVisible={item.benchmark && item.benchmark.date}
+              />
+              <Badge
+                color="grey"
+                text="X"
+                isVisible={item.benchmark && item.benchmark.taxAmount}
+              />
+              <Badge
+                color="grey"
+                text="$"
+                isVisible={item.benchmark && item.benchmark.totalAmount}
+              />
             </a>
           ))}
         </div>

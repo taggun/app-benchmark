@@ -31,26 +31,34 @@ export default class List extends Component {
               <span className={`hide-on-med-and-down ${styles.contentType}`}>
                 {item.contentType.split('/')[1]}
               </span>
-              <Badge
-                color="grey"
-                text="M"
-                isVisible={item.benchmark && item.benchmark.merchantName}
-              />
-              <Badge
-                color="grey"
-                text="D"
-                isVisible={item.benchmark && item.benchmark.date}
-              />
-              <Badge
-                color="grey"
-                text="X"
-                isVisible={item.benchmark && item.benchmark.taxAmount}
-              />
-              <Badge
-                color="grey"
-                text="$"
-                isVisible={item.benchmark && item.benchmark.totalAmount}
-              />
+              { item.benchmark ?
+                (
+                  <span>
+                    <Badge
+                      result={item.benchmark.merchantNameResult}
+                      text="M"
+                      isVisible={!!item.benchmark.merchantName}
+                    />
+                    <Badge
+                      result={item.benchmark.dateResult}
+                      text="D"
+                      isVisible={!!item.benchmark.date}
+                    />
+                    <Badge
+                      result={item.benchmark.taxAmountResult}
+                      text="X"
+                      isVisible={!!item.benchmark.taxAmount}
+                    />
+                    <Badge
+                      result={item.benchmark.totalAmountResult}
+                      text="$"
+                      isVisible={!!item.benchmark.totalAmount}
+                    />
+                  </span>
+                )
+              :
+              ''
+              }
             </a>
           ))}
         </div>

@@ -32,6 +32,10 @@
   border-bottom: solid 1px #ffffff;
 }
 
+.topRow button {
+  margin-left: 4px;
+}
+
 .numbers {
   font-size: 0.95em;
 }

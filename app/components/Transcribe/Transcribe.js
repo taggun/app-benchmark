@@ -19,6 +19,7 @@ export default class Transcribe extends Component {
     this.saveRequest = this.saveRequest.bind(this);
     this.handleSelectItem = this.handleSelectItem.bind(this);
     this.handleRefreshClick = this.handleRefreshClick.bind(this);
+    this.handleBenchmarkClick = this.handleBenchmarkClick.bind(this);
   }
 
   componentDidMount() {
@@ -57,13 +58,18 @@ export default class Transcribe extends Component {
       this.props.home.apikey,
       `${benchmarkApiUrl}/api/benchmark/v1/file/${item.md5}?apikey=${this.props.home.apikey}`,
       this.state.target,
-      item.userIpAddress || item.callerIpAddress
+      item.userIpAddress || item.callerIpAddress,
+      item.md5
     );
     event.preventDefault();
   }
 
   handleRefreshClick() {
     this.props.benchmarkListRequest(this.props.home.apikey);
+  }
+
+  handleBenchmarkClick() {
+    console.log('benchmark');
   }
 
   render() {
@@ -88,11 +94,15 @@ export default class Transcribe extends Component {
         <LoadingBar />
         <div>
           <div className={`${styles.topRow} row`}>
-            <div className="input-field col s3 left">
+            <div className="input-field col s6 left">
               <button
                 className="btn"
                 onClick={this.handleRefreshClick}
               >Refresh</button>
+              <button
+                className="btn"
+                onClick={this.handleBenchmarkClick}
+              >Benchmark</button>
             </div>
             <div className="input-field col s3 right">
               <select
@@ -114,7 +124,7 @@ export default class Transcribe extends Component {
             </div>
           </div>
           <div className="row">
-            <div className="col s5 l3">
+            <div className="col s4 l3">
               <List
                 list={list}
                 onSelect={this.handleSelectItem}

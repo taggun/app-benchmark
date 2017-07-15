@@ -4,10 +4,11 @@ export const SCAN_ERROR = 'SCAN_ERROR';
 export const SAVE_REQUEST = 'SAVE_REQUEST';
 export const SAVE_RESPONSE = 'SAVE_RESPONSE';
 export const SAVE_ERROR = 'SAVE_ERROR';
+export const BENCHMARK_RESULT = 'BENCHMARK_RESULT';
 
 const benchmarkApiUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3022' : 'https://api-benchmark.taggun.io';
 
-export function scanRequest(apikey, url, target, ipAddress) {
+export function scanRequest(apikey, url, target, ipAddress, md5) {
   return (dispatch) => {
     dispatch({
       type: SCAN_REQUEST,
@@ -27,14 +28,19 @@ export function scanRequest(apikey, url, target, ipAddress) {
       }
     }).then((response) => response.json())
 
-      .then((result) => dispatch(scanResponse(result)))
+      .then((result) => dispatch(scanResponse(result, md5)))
 
       .catch((error) => dispatch(scanError(error)));
   };
 }
 
-export function scanResponse(result) {
+export function scanResponse(result, md5) {
   return (dispatch) => {
+    dispatch({
+      type: BENCHMARK_RESULT,
+      result,
+      md5
+    });
     dispatch({
       type: SCAN_RESPONSE,
       result

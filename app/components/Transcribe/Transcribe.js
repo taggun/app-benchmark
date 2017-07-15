@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router';
 import PropTypes from 'prop-types';
+import LoadingBar from 'react-redux-loading-bar';
 import createHistory from 'history/createHashHistory';
 import List from './List';
 import Details from './Details';
@@ -17,6 +18,7 @@ export default class Transcribe extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.saveRequest = this.saveRequest.bind(this);
     this.handleSelectItem = this.handleSelectItem.bind(this);
+    this.handleRefreshClick = this.handleRefreshClick.bind(this);
   }
 
   componentDidMount() {
@@ -60,6 +62,10 @@ export default class Transcribe extends Component {
     event.preventDefault();
   }
 
+  handleRefreshClick() {
+    this.props.benchmarkListRequest(this.props.home.apikey);
+  }
+
   render() {
     const { list } = this.props.home;
 
@@ -79,8 +85,15 @@ export default class Transcribe extends Component {
 
     return (
       <div>
+        <LoadingBar />
         <div>
           <div className={`${styles.topRow} row`}>
+            <div className="input-field col s3 left">
+              <button
+                className="btn"
+                onClick={this.handleRefreshClick}
+              >Refresh</button>
+            </div>
             <div className="input-field col s3 right">
               <select
                 id="target"
@@ -119,6 +132,7 @@ export default class Transcribe extends Component {
 }
 
 Transcribe.propTypes = {
+  benchmarkListRequest: PropTypes.func,
   saveRequest: PropTypes.func,
   home: PropTypes.shape({
     apikey: PropTypes.string,

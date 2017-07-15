@@ -148,7 +148,7 @@ export default class UserForm extends Component {
             </div>
             <div className="row">
               <div className="col s2">
-                <input type="submit" value="Save" className="btn" />
+                <input type="submit" disabled={this.props.userResult.isLoading} value="Save" className="btn" />
               </div>
             </div>
             {

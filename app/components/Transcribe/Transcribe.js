@@ -38,8 +38,8 @@ export default class Transcribe extends Component {
     this.setState(stateChanged);
   }
 
-  saveRequest(benchmark) {
-    this.props.saveRequest(this.state.apikey, this.state.id, benchmark);
+  saveRequest(benchmark, result) {
+    this.props.saveRequest(this.state.apikey, this.state.id, benchmark, result, this.state.md5);
   }
 
   handleSelectItem(event, item) {

@@ -76,7 +76,7 @@ export default class UserForm extends Component {
   }
 
   handleSubmit(event) {
-    this.props.saveRequest(this.state);
+    this.props.saveRequest(this.state, this.props.ocrResult);
     event.preventDefault();
   }
 

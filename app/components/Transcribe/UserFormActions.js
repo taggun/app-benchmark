@@ -4,7 +4,8 @@ export const SCAN_ERROR = 'SCAN_ERROR';
 export const SAVE_REQUEST = 'SAVE_REQUEST';
 export const SAVE_RESPONSE = 'SAVE_RESPONSE';
 export const SAVE_ERROR = 'SAVE_ERROR';
-export const BENCHMARK_RESULT = 'BENCHMARK_RESULT';
+export const LIST_BENCHMARK_RESULT = 'LIST_BENCHMARK_RESULT';
+export const LIST_SAVE_RESULT = 'LIST_SAVE_RESULT';
 
 const benchmarkApiUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3022' : 'https://api-benchmark.taggun.io';
 
@@ -37,7 +38,7 @@ export function scanRequest(apikey, url, target, ipAddress, md5) {
 export function scanResponse(result, md5) {
   return (dispatch) => {
     dispatch({
-      type: BENCHMARK_RESULT,
+      type: LIST_BENCHMARK_RESULT,
       result,
       md5
     });
@@ -56,13 +57,23 @@ export function scanError(error) {
   };
 }
 
-export function saveRequest(apikey, id, benchmark) {
+export function saveRequest(apikey, id, benchmark, result, md5) {
   return (dispatch) => {
     dispatch({
       type: SAVE_REQUEST,
       id,
       benchmark,
       apikey
+    });
+    dispatch({
+      type: LIST_SAVE_RESULT,
+      id,
+      benchmark
+    });
+    dispatch({
+      type: LIST_BENCHMARK_RESULT,
+      result,
+      md5
     });
 
     const payload = Object.assign({ id }, benchmark);
@@ -74,9 +85,7 @@ export function saveRequest(apikey, id, benchmark) {
         'Content-Type': 'application/json',
         apikey
       }
-    }).then((response) => response.json())
-
-      .then((result) => dispatch(saveResponse(result)))
+    }).then((result) => dispatch(saveResponse(result)))
 
       .catch((error) => dispatch(saveError(error)));
   };

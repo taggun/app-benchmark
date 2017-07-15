@@ -5,7 +5,8 @@ const history = createHistory();
 export const LIST_REQUEST = 'LIST_REQUEST';
 export const LIST_RESPONSE = 'LIST_RESPONSE';
 export const LIST_ERROR = 'LIST_ERROR';
-export const BENCHMARK_RESULT = 'BENCHMARK_RESULT';
+export const LIST_BENCHMARK_RESULT = 'LIST_BENCHMARK_RESULT';
+export const LIST_SAVE_RESULT = 'LIST_SAVE_RESULT';
 
 const benchmarkApiUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3022' : 'https://api-benchmark.taggun.io';
 

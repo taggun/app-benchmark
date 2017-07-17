@@ -69,7 +69,7 @@ export default class Transcribe extends Component {
   }
 
   handleBenchmarkClick() {
-    console.log('benchmark');
+    this.props.startBenchmark(this.props.home.list, this.props.home.apikey, this.state.target);
   }
 
   render() {
@@ -88,13 +88,12 @@ export default class Transcribe extends Component {
         {...props}
       />
     );
-
     return (
       <div>
         <LoadingBar />
         <div>
           <div className={`${styles.topRow} row`}>
-            <div className="input-field col s6 left">
+            <div className="input-field col s4 left">
               <button
                 className="btn"
                 onClick={this.handleRefreshClick}
@@ -103,6 +102,12 @@ export default class Transcribe extends Component {
                 className="btn"
                 onClick={this.handleBenchmarkClick}
               >Benchmark</button>
+            </div>
+            <div className="col s3">
+              $:{this.props.home.statistics.totalAmount.accuracy}%({this.props.home.statistics.totalAmount.count})
+              X:{this.props.home.statistics.taxAmount.accuracy}%({this.props.home.statistics.taxAmount.count})
+              D:{this.props.home.statistics.date.accuracy}%({this.props.home.statistics.date.count})
+              M:{this.props.home.statistics.merchantName.accuracy}%({this.props.home.statistics.merchantName.count})
             </div>
             <div className="input-field col s3 right">
               <select
@@ -143,11 +148,13 @@ export default class Transcribe extends Component {
 
 Transcribe.propTypes = {
   benchmarkListRequest: PropTypes.func,
+  startBenchmark: PropTypes.func,
   saveRequest: PropTypes.func,
   home: PropTypes.shape({
     apikey: PropTypes.string,
     list: PropTypes.array,
     error: PropTypes.string,
+    statistics: PropTypes.object
   }),
   userForm: PropTypes.shape({
     result: PropTypes.object,
@@ -158,8 +165,33 @@ Transcribe.propTypes = {
 };
 
 Transcribe.defaultProps = {
+  benchmarkListRequest: undefined,
+  startBenchmark: undefined,
   saveRequest: undefined,
-  home: {},
+  home: {
+    statistics: {
+      totalAmount: {
+        count: 0,
+        match: 0,
+        accuracy: 1,
+      },
+      taxAmount: {
+        count: 0,
+        match: 0,
+        accuracy: 1,
+      },
+      date: {
+        count: 0,
+        match: 0,
+        accuracy: 1,
+      },
+      merchantName: {
+        count: 0,
+        match: 0,
+        accuracy: 1,
+      }
+    }
+  },
   userForm: {},
   scanRequest: undefined
 };
